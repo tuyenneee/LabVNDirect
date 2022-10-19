@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/js/sockjs-0.3.4.min.js"></script>
+    <script src="/js/stomp.js"></script>
+    <script src="/js/main1.js"></script>
+</head>
+
+<body onload="connect()">
+<h1>List groups</h1>
+
+<p><a href="group.html">Add group</a></p>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th colspan="2">Action</th>
+    </tr>
+    </thead>
+    <tbody id="groupId">
+
+    </tbody>
+
+</table>
+
+<p id="response"></p>
+</body>
+
+</html>

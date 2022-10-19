@@ -1,0 +1,185 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > UserRestServiceController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.hanoi.service.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: UserRestServiceController (edu.hanoi.service.controller)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UserRestServiceController</td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    44.4%
+  </span>
+  <span class="absValue">
+    (4/9)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UserRestServiceController$$EnhancerBySpringCGLIB$$91cb3565</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestServiceController$$EnhancerBySpringCGLIB$$91cb3565$$FastClassBySpringCGLIB$$63f13fe1</td>
+  </tr>
+  <tr>
+    <td class="name">UserRestServiceController$$FastClassBySpringCGLIB$$68e6c4f0</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    28.6%
+  </span>
+  <span class="absValue">
+    (2/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    44.4%
+  </span>
+  <span class="absValue">
+    (4/9)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package edu.hanoi.service.controller;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import edu.hanoi.service.dao.GroupDAO;
+<i class="no-highlight">4</i>&nbsp;import edu.hanoi.service.dao.UserDAO;
+<i class="no-highlight">5</i>&nbsp;import edu.hanoi.service.model.Group;
+<i class="no-highlight">6</i>&nbsp;import edu.hanoi.service.model.User;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+<i class="no-highlight">8</i>&nbsp;import org.springframework.http.HttpStatus;
+<i class="no-highlight">9</i>&nbsp;import org.springframework.security.access.prepost.PostFilter;
+<i class="no-highlight">10</i>&nbsp;import org.springframework.security.access.prepost.PreAuthorize;
+<i class="no-highlight">11</i>&nbsp;import org.springframework.security.core.Authentication;
+<i class="no-highlight">12</i>&nbsp;import org.springframework.security.core.context.SecurityContextHolder;
+<i class="no-highlight">13</i>&nbsp;import org.springframework.web.bind.annotation.*;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;import javax.servlet.http.HttpServletRequest;
+<i class="no-highlight">16</i>&nbsp;import java.util.List;
+<i class="no-highlight">17</i>&nbsp;
+<i class="no-highlight">18</i>&nbsp;@RestController
+<b class="fc"><i class="no-highlight">19</i>&nbsp;public class UserRestServiceController {</b>
+<i class="no-highlight">20</i>&nbsp;    @Autowired
+<i class="no-highlight">21</i>&nbsp;    private UserDAO userDAO;
+<i class="no-highlight">22</i>&nbsp;    @Autowired
+<i class="no-highlight">23</i>&nbsp;    private GroupDAO groupDAO;
+<i class="no-highlight">24</i>&nbsp;
+<i class="no-highlight">25</i>&nbsp;    @RequestMapping(value = &quot;/list/users&quot;, method = RequestMethod.GET)
+<i class="no-highlight">26</i>&nbsp;//    @PreAuthorize(&quot;hasRole(&#39;ADMIN&#39;)&quot;)
+<i class="no-highlight">27</i>&nbsp;//    @PostFilter(&quot;filterObject.username == &#39;sa&#39;&quot;)
+<i class="no-highlight">28</i>&nbsp;    @PreAuthorize(&quot;hasAnyRole(&#39;USER1&#39;)&quot;)
+<i class="no-highlight">29</i>&nbsp;    @PostFilter(&quot;hasPermission(filterObject, &#39;read&#39;)&quot;)
+<i class="no-highlight">30</i>&nbsp;    public List&lt;User&gt; listUser(){
+<i class="no-highlight">31</i>&nbsp;//        if(!request.isUserInRole(&quot;ROLE_ADMIN&quot;)){
+<i class="no-highlight">32</i>&nbsp;//            throw new RuntimeException(&quot;Access denied!&quot;);
+<i class="no-highlight">33</i>&nbsp;//        }
+<b class="fc"><i class="no-highlight">34</i>&nbsp;        Authentication auth = SecurityContextHolder.getContext().getAuthentication();</b>
+<b class="fc"><i class="no-highlight">35</i>&nbsp;        System.out.println(&quot;\n--------&gt; &quot;+auth.getAuthorities());</b>
+<b class="fc"><i class="no-highlight">36</i>&nbsp;        return userDAO.list();</b>
+<i class="no-highlight">37</i>&nbsp;    }
+<i class="no-highlight">38</i>&nbsp;
+<i class="no-highlight">39</i>&nbsp;    @RequestMapping(value = &quot;/list/groups&quot;)
+<i class="no-highlight">40</i>&nbsp;    public Group[] listGroups(){
+<b class="nc"><i class="no-highlight">41</i>&nbsp;        return groupDAO.list().toArray(new Group[0]);</b>
+<i class="no-highlight">42</i>&nbsp;    }
+<i class="no-highlight">43</i>&nbsp;
+<i class="no-highlight">44</i>&nbsp;    @RequestMapping(value = &quot;/add/user&quot;, method = RequestMethod.POST)
+<i class="no-highlight">45</i>&nbsp;    @ResponseStatus(HttpStatus.CREATED)
+<i class="no-highlight">46</i>&nbsp;    public String addUser(@RequestBody User user){
+<b class="nc"><i class="no-highlight">47</i>&nbsp;        return userDAO.insert(user);</b>
+<i class="no-highlight">48</i>&nbsp;    }
+<i class="no-highlight">49</i>&nbsp;
+<i class="no-highlight">50</i>&nbsp;    @RequestMapping(value = &quot;/get/user/{name}&quot;, method = RequestMethod.GET)
+<i class="no-highlight">51</i>&nbsp;    public User getUser(@PathVariable String name){
+<b class="nc"><i class="no-highlight">52</i>&nbsp;        return userDAO.get(name);</b>
+<i class="no-highlight">53</i>&nbsp;    }
+<i class="no-highlight">54</i>&nbsp;
+<i class="no-highlight">55</i>&nbsp;    @RequestMapping(value = &quot;/delete/user/{name}&quot;, method = RequestMethod.GET)
+<i class="no-highlight">56</i>&nbsp;    public void delete(@PathVariable String name){
+<b class="nc"><i class="no-highlight">57</i>&nbsp;        userDAO.delete(name);</b>
+<i class="no-highlight">58</i>&nbsp;    }
+<i class="no-highlight">59</i>&nbsp;
+<i class="no-highlight">60</i>&nbsp;    @RequestMapping(value = &quot;/update/user&quot;, method = RequestMethod.POST)
+<i class="no-highlight">61</i>&nbsp;    public void updateUser(@RequestBody User user){
+<b class="nc"><i class="no-highlight">62</i>&nbsp;        userDAO.update(user);</b>
+<i class="no-highlight">63</i>&nbsp;    }
+<i class="no-highlight">64</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-10-13 11:29</div>
+</div>
+</body>
+</html>

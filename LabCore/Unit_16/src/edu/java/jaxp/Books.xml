@@ -1,0 +1,21 @@
+<?xml version = "1.0"?>
+<!-- <?xml-stylesheet type = "text/xsl" href = "books.xsl"?> -->
+<university>
+    <library>
+        <book page="102">
+            <booktitle>The Firm</booktitle>
+            <author>John Grisham</author>
+            <price>99</price>
+        </book>
+        <book page="78">
+            <booktitle>Coma</booktitle>
+            <author>Robin Cook</author>
+            <price>99</price>
+        </book>
+        <book page="189">
+            <booktitle>Wild Horses</booktitle>
+            <author>Rebecca Moore</author>
+            <price>35</price>
+        </book>
+    </library>
+</university>

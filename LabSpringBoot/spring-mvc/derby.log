@@ -1,0 +1,16 @@
+----------------------------------------------------------------
+Wed Oct 05 15:32:29 ICT 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.12.1.1 - (1704137): instance a816c00e-0183-a746-5924-0000079f2400 
+on database directory C:\Java\sampledb2 with class loader WebAppClassLoader{Spring MVC Web Application}@2152ab30 
+Loaded from file:/C:/Users/Window%2010/.m2/repository/org/apache/derby/derby/10.12.1.1/derby-10.12.1.1.jar
+java.vendor=Oracle Corporation
+java.runtime.version=18.0.1.1+2-6
+user.dir=C:\Java\spring-mvc
+os.name=Windows 11
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
+----------------------------------------------------------------
+Wed Oct 05 15:33:26 ICT 2022:
+Shutting down instance a816c00e-0183-a746-5924-0000079f2400 on database directory C:\Java\sampledb2 with class loader WebAppClassLoader{Spring MVC Web Application}@2152ab30 

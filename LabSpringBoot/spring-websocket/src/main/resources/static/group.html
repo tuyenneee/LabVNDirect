@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>HN spring websocket</title>
+    <script src="/js/sockjs-0.3.4.min.js"></script>
+    <script src="/js/stomp.js"></script>
+    <script type="text/javascript">
+        var stompClient = null;
+        var id = getRequestParam('id');
+        function connect() {
+            var socket = new SockJS('/group');
+            stompClient = Stomp.over(socket);
+            stompClient.connect({}, function (frame) {
+                console.log('Connected: ' + frame);
+
+                stompClient.subscribe('/topic/chat', function (message) {
+                    showMessage(JSON.parse(message.body).content);
+
+                });
+                // loadGroups();
+                loadInfoGroup(id);
+            });
+        }
+
+        // function loadGroups(){
+        //     var xmlhttp = new XMLHttpRequest();
+        //     xmlhttp.onreadystatechange = function (){
+        //         if(xmlhttp.readyState == XMLHttpRequest.DONE){
+        //             console.log(xmlhttp.responseText);
+        //             var groups = JSON.parse(xmlhttp.responseText);
+        //             var select = document.getElementById('groupId');
+        //             for (var index in groups){
+        //                 var group = groups[index];
+        //                 select.appendChild(createOptionGroup(group));
+        //             }
+        //         }
+        //     };
+        //     xmlhttp.open("GET", "/groups", true);
+        //     xmlhttp.send();
+        // }
+
+        function save() {
+            //var id = document.getElementById('id').value;
+            var name = document.getElementById('name').value;
+            console.log("Sending..." + id);
+            stompClient.send("/app/group", {}, JSON.stringify({
+                'id': id,
+                'name': name,
+                'content': getRequestParam('id')
+            }));
+        }
+
+        function showMessage(text) {
+            var response = document.getElementById('response');
+            var p = document.createElement('h1');
+            p.appendChild(document.createTextNode(text));
+            response.appendChild(p);
+        }
+
+        function getRequestParam(id) {
+            if (id = (new RegExp('[?&]' + encodeURIComponent(id) + '=([^&]*)')).exec(location.search))
+                return decodeURIComponent(id[1]);
+        }
+
+        function loadInfoGroup(id) {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == XMLHttpRequest.DONE) {
+                    //console.log(xmlhttp.responseText); //Return list group
+
+                    var groups = JSON.parse(xmlhttp.responseText);
+                    //document.getElementById('id').value = groups.id;
+                    if(id != null){
+                        document.getElementById('name').value = groups.name;
+                    }
+                    //document.getElementById('id').readOnly = true;
+                }
+            };
+            xmlhttp.open("GET", "/getGroup/" + id, true);
+            xmlhttp.send();
+        }
+    </script>
+</head>
+<body onload="connect()">
+<h1>Add group</h1>
+<form method="post" action="javascript:save()">
+<!--    <p>ID: <input type="text" id="id" name="id"></p>-->
+    <p>Name: <input type="text" id="name" name="name"></p>
+    <p class="submit">
+        <input type="submit" name="save" value="Save">
+    </p>
+    <p id="response"></p>
+</form>
+</body>
+</html>

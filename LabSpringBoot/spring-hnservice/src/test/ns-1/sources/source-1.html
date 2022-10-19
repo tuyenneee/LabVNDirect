@@ -1,0 +1,175 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > AppConfig</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">edu.hanoi.service</a>
+</div>
+
+<h1>Coverage Summary for Class: AppConfig (edu.hanoi.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppConfig</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.1%
+  </span>
+  <span class="absValue">
+    (16/17)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppConfig$$EnhancerBySpringCGLIB$$dffd69f</td>
+  </tr>
+  <tr>
+    <td class="name">AppConfig$$EnhancerBySpringCGLIB$$dffd69f$$FastClassBySpringCGLIB$$f02ecf5d</td>
+  </tr>
+  <tr>
+    <td class="name">AppConfig$$FastClassBySpringCGLIB$$2bf63d73</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (4/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    94.1%
+  </span>
+  <span class="absValue">
+    (16/17)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package edu.hanoi.service;
+&nbsp;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.boot.autoconfigure.orm.jpa.HibernateProperties;
+&nbsp;import org.springframework.context.annotation.Bean;
+&nbsp;import org.springframework.context.annotation.Configuration;
+&nbsp;import org.springframework.context.annotation.PropertySource;
+&nbsp;import org.springframework.jdbc.datasource.DriverManagerDataSource;
+&nbsp;import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+&nbsp;import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+&nbsp;import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+&nbsp;import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+&nbsp;import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+&nbsp;
+&nbsp;import javax.sql.DataSource;
+&nbsp;import java.util.Properties;
+&nbsp;
+&nbsp;@Configuration
+&nbsp;@EnableWebMvc
+&nbsp;@PropertySource(&quot;classpath:/application.properties&quot;)
+<b class="fc">&nbsp;public class AppConfig extends WebMvcConfigurationSupport {</b>
+&nbsp;    @Autowired
+&nbsp;    private org.springframework.core.env.Environment env;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+<b class="nc">&nbsp;        super.configureDefaultServletHandling(configurer);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Bean
+&nbsp;    public DataSource dataSource() {
+<b class="fc">&nbsp;        String url = env.getProperty(&quot;jdbc.url&quot;);</b>
+<b class="fc">&nbsp;        DriverManagerDataSource dataSource = new DriverManagerDataSource(url);</b>
+<b class="fc">&nbsp;        dataSource.setDriverClassName(env.getProperty(&quot;jdbc.driverClassName&quot;));</b>
+<b class="fc">&nbsp;        dataSource.setUsername(env.getProperty(&quot;jdbc.user&quot;));</b>
+<b class="fc">&nbsp;        dataSource.setPassword(env.getProperty(&quot;jdbc.pass&quot;));</b>
+<b class="fc">&nbsp;        return dataSource;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Bean
+&nbsp;    public LocalSessionFactoryBean sessionFactory() {
+<b class="fc">&nbsp;        LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();</b>
+<b class="fc">&nbsp;        sessionFactory.setDataSource(dataSource());</b>
+<b class="fc">&nbsp;        sessionFactory.setPackagesToScan(&quot;edu.hanoi.service.model&quot;);</b>
+<b class="fc">&nbsp;        sessionFactory.setHibernateProperties(hibernateProperties());</b>
+<b class="fc">&nbsp;        return sessionFactory;</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    Properties hibernateProperties() {
+<b class="fc">&nbsp;        Properties properties = new Properties();</b>
+<b class="fc">&nbsp;        properties.put(&quot;hibernate.show_sql&quot;, env.getProperty(&quot;hibernate.show_sql&quot;));</b>
+<b class="fc">&nbsp;        properties.put(&quot;hibernate.dialect&quot;, env.getProperty(&quot;hibernate.dialect&quot;));</b>
+<b class="fc">&nbsp;        return properties;</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-10-13 11:21</div>
+</div>
+</body>
+</html>
